@@ -1,4 +1,4 @@
-name := "Data"
+name := "Anagram"
 
 version := "0.1"
 
