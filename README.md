@@ -11,6 +11,3 @@ The challenge is fairly simple: given a file containing one word per line, print
   rots sort
   ```
   
-  For added programming pleasure, find the longest words that are anagrams, and find the set of 
-  anagrams containing the most words (so “parsley players replays sparely” would not win, having 
-  only four words in the set).
