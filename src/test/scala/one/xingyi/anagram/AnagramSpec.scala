@@ -26,7 +26,7 @@ class AnagramSpec extends FlatSpec with Matchers with MockitoSugar {
     WordKeyFinder("cba") shouldBe Key("abc")
   }
 
-  behavior of "anagram store"
+  behavior of "anagram "
 
   def anagram(s: String*) = {
     val a = new Anagram
@@ -39,9 +39,16 @@ class AnagramSpec extends FlatSpec with Matchers with MockitoSugar {
     anagram("ab", "bacd").mapCopy shouldBe Map(Key("abcd") -> Set(Word("bacd")), Key("ab") -> Set(Word("ab")))
   }
   it should "get me the anagrams of a word" in {
+    anagram().apply("ab") shouldBe Set[Word]("ab")
     anagram("ab", "ba", "cc").apply("ab") shouldBe Set[Word]("ab", "ba")
     anagram("ab", "ba", "cc").apply("cc") shouldBe Set[Word]("cc")
     anagram("ab", "ba", "cc").apply("dd") shouldBe Set[Word]("dd")
+  }
+
+  it should "get me an iterator of all the anagrams" in {
+    anagram().anagrams.toList shouldBe List()
+    anagram("ab", "ba", "ad", "da", "cc").anagrams.toSet shouldBe Set(Set("ab", "ba"), Set("ad", "da"))
+
   }
 
   behavior of "anagramloader"

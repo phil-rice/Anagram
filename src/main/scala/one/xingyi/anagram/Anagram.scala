@@ -13,6 +13,9 @@ class ShardedMap[K, V](count: Int) {
 }
 
 class Anagram(implicit wordKeyFinder: WordKeyFinder) extends (Word => Set[Word]) {
+  def atomicRefOfSetofWordsToSetOfStrings: AtomicReference[Set[Word]] => Set[String] = _.get.map(_.s)
+  def anagrams: Iterable[Set[String]] = map.values.map(atomicRefOfSetofWordsToSetOfStrings).filter(_.size>1)
+
   val map = TrieMap[Key, AtomicReference[Set[Word]]]()
 
   def apply(str: Word): Set[Word] = map.get(str).fold(Set(str))(_.get)
